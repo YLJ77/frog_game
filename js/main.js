@@ -41,7 +41,7 @@ function Frog(){
 					time.style.display = 'block';
 					setTimeout(function(){
 						self.timing();
-						time.timer = setInterval(self.timing, 1000);
+						time.timer = setInterval(self.timing, 10);
 					}, 0)
 				}
 				[].forEach.call(dock,function(dock){
@@ -87,7 +87,7 @@ function Frog(){
 					count +=1;
 				}
 				if(count == 4) {
-					win_info.innerHTML = '哇!你用了<span style="color:#f30">'+(time.sec-1)+'</span>秒通过了游戏,赶快分享到朋友圈，和朋友们PK一下吧！'
+					win_info.innerHTML = '哇!你用了<span style="color:#f30">'+((time.sec-1)/100)+'</span>秒通过了游戏,赶快分享到朋友圈，和朋友们PK一下吧！'
 					win_info.style.display = 'block';
 					clearInterval(time.timer);
 				}
@@ -112,7 +112,7 @@ function Frog(){
 Frog.prototype = {
 	timing: function(){
 		var time = this.time;
-		time.innerText = "用时： "+time.sec+"秒";
+		time.innerText = "用时： "+(time.sec)/100+"秒";
 		time.sec += 1;
 	},
 	restart: function(){
