@@ -97,11 +97,15 @@ function Frog(){
 
 	if(document.addEventListener) {
 		document.addEventListener('click',handler,false);
+		document.addEventListener('touchstart',handler,false);
 	} else if (document.attachEvent) {
 		document.attachEvent('onclick' , handler);
+		document.attachEvent('ontouchstart' , handler);
 	} else {
 		document['onclick'] = handler;
+		document['ontouchstart'] = handler;
 	}
+	
 }
 
 Frog.prototype = {
