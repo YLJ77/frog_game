@@ -96,14 +96,23 @@ function Frog(){
 	};
 
 	if(document.addEventListener) {
-		document.addEventListener('click',handler,false);
-		document.addEventListener('touchstart',handler,false);
+		if(document['onclick']){
+			document.addEventListener('click',handler,false);
+		} else if(document['ontouchstart']) {
+			document.addEventListener('touchstart',handler,false);
+		}
 	} else if (document.attachEvent) {
-		document.attachEvent('onclick' , handler);
-		document.attachEvent('ontouchstart' , handler);
+		if(document['onclick']){
+			document.attachEvent('onclick' , handler);
+		} else if(document['ontouchstart']) {
+			document.attachEvent('ontouchstart' , handler);
+		}
 	} else {
-		document['onclick'] = handler;
-		document['ontouchstart'] = handler;
+		if(document['onclick']){
+			document['onclick'] = handler;
+		} else if(document['ontouchstart']) {
+			document['ontouchstart'] = handler;
+		}
 	}
 	
 }
