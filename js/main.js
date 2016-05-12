@@ -95,26 +95,18 @@ function Frog(){
 		}
 	};
 
+	var device = this.browserRedirect();
+
+
 	if(document.addEventListener) {
-		if(document['onclick']){
-			document.addEventListener('click',handler,false);
-		} else if(document['ontouchstart']) {
-			document.addEventListener('touchstart',handler,false);
-		}
+		device == 'phone'? document.addEventListener('touchstart',handler,false):document.addEventListener('click',handler,false);
 	} else if (document.attachEvent) {
-		if(document['onclick']){
-			document.attachEvent('onclick' , handler);
-		} else if(document['ontouchstart']) {
-			document.attachEvent('ontouchstart' , handler);
-		}
+		device == 'phone'? document.attachEvent('ontouchstart' , handler):document.attachEvent('onclick' , handler);
 	} else {
-		if(document['onclick']){
-			document['onclick'] = handler;
-		} else if(document['ontouchstart']) {
-			document['ontouchstart'] = handler;
-		}
+		device == 'phone'? document['ontouchstart'] = handler:document['onclick'] = handler;
 	}
-	
+
+
 }
 
 Frog.prototype = {
@@ -151,5 +143,22 @@ Frog.prototype = {
 				box.appendChild(div);;
 			}
 		}
+	},
+	browserRedirect: function(){
+		var sUserAgent = navigator.userAgent.toLowerCase();
+		var bIsIpad = sUserAgent.match(/ipad/i) == "ipad";
+		var bIsIphoneOs = sUserAgent.match(/iphone os/i) == "iphone os";
+		var bIsMidp = sUserAgent.match(/midp/i) == "midp";
+		var bIsUc7 = sUserAgent.match(/rv:1.2.3.4/i) == "rv:1.2.3.4";
+		var bIsUc = sUserAgent.match(/ucweb/i) == "ucweb";
+		var bIsAndroid = sUserAgent.match(/android/i) == "android";
+		var bIsCE = sUserAgent.match(/windows ce/i) == "windows ce";
+		var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
+		if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
+		    return 'phone';
+		} else {
+		    return 'pc';
+		}
 	}
 }
+
